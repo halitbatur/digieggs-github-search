@@ -7,11 +7,12 @@ import {
 } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, InputBase } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 
 export default function PrimarySearchAppBar() {
   const location = useLocation();
+  let history = useHistory();
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       grow: {
@@ -22,6 +23,9 @@ export default function PrimarySearchAppBar() {
         display: "none",
         [theme.breakpoints.up("sm")]: {
           display: "block",
+        },
+        "&:hover": {
+          cursor: "pointer",
         },
       },
       search: {
@@ -66,12 +70,16 @@ export default function PrimarySearchAppBar() {
         },
       },
       bookMark: {
-        padding: theme.spacing(1, 1, 1, 0),
+        padding: theme.spacing(1, 2.5, 1, 2.5),
+        borderRadius: 10,
         display: "flex",
         backgroundColor:
           location.pathname === "/bookmark"
             ? fade(theme.palette.common.white, 0.25)
             : "inherit",
+        "&:hover": {
+          cursor: "pointer",
+        },
       },
     })
   );
@@ -81,7 +89,12 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static" style={{ backgroundColor: "#375F9D" }}>
         <Toolbar>
-          <Typography className={classes.title} variant="h4" noWrap>
+          <Typography
+            className={classes.title}
+            variant="h4"
+            noWrap
+            onClick={() => history.push("/")}
+          >
             DIGIEGGS
           </Typography>
           <div className={classes.search}>
@@ -98,7 +111,11 @@ export default function PrimarySearchAppBar() {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
-          <div className={classes.bookMark}>
+
+          <div
+            className={classes.bookMark}
+            onClick={() => history.push("/bookmark")}
+          >
             <BookmarkBorderOutlinedIcon />
             <Typography className={classes.title} variant="subtitle1" noWrap>
               Bookmarks
