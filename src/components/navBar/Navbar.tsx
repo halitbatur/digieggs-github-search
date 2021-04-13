@@ -70,9 +70,9 @@ export default function PrimarySearchAppBar() {
       inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(8)}px)`,
+        paddingLeft: `calc(1em + ${theme.spacing(1)}px)`,
 
-        width: "50%",
+        width: "100%",
         [theme.breakpoints.up("md")]: {
           width: "20ch",
         },
