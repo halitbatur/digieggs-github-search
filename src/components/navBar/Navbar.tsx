@@ -5,7 +5,13 @@ import {
   Theme,
   createStyles,
 } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Typography, InputBase } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  InputBase,
+  Button,
+} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { useLocation, useHistory } from "react-router-dom";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
@@ -29,7 +35,8 @@ export default function PrimarySearchAppBar() {
         },
       },
       search: {
-        position: "relative",
+        display: "flex",
+        alignItems: "center",
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.black, 0.25),
         "&:hover": {
@@ -46,15 +53,16 @@ export default function PrimarySearchAppBar() {
       searchIcon: {
         padding: theme.spacing(0, 2),
         height: "100%",
-        position: "absolute",
         pointerEvents: "none",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         "&:hover": {
           cursor: "pointer",
+          backgroundColor: "black",
         },
         zIndex: 2,
+        position: "absolute",
       },
       inputRoot: {
         color: "inherit",
@@ -62,9 +70,9 @@ export default function PrimarySearchAppBar() {
       inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create("width"),
-        width: "100%",
+        paddingLeft: `calc(1em + ${theme.spacing(8)}px)`,
+
+        width: "50%",
         [theme.breakpoints.up("md")]: {
           width: "20ch",
         },
@@ -98,9 +106,9 @@ export default function PrimarySearchAppBar() {
             DIGIEGGS
           </Typography>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
+            <Button>
               <SearchIcon />
-            </div>
+            </Button>
             <InputBase
               placeholder="Search…"
               classes={{
