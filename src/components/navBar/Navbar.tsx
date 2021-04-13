@@ -16,9 +16,15 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useLocation, useHistory } from "react-router-dom";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
 export default function PrimarySearchAppBar() {
   const location = useLocation();
   let history = useHistory();
+  const [search, setSearch] = React.useState<string>("");
+
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       grow: {
@@ -106,16 +112,17 @@ export default function PrimarySearchAppBar() {
             DIGIEGGS
           </Typography>
           <div className={classes.search}>
-            <Button>
+            <Button onClick={() => history.push(`/search?query=${search}`)}>
               <SearchIcon />
             </Button>
             <InputBase
+              value={search}
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              onChange={(e) => console.log(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               inputProps={{ "aria-label": "search" }}
             />
           </div>
