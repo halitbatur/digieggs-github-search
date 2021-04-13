@@ -2,16 +2,19 @@ import React from "react";
 import { Divider, Typography } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
+import { DataResults } from "../../container/searchResults/SearchResults";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     header: {
-      marginBottom: "42px",
+      marginBottom: "18px",
     },
     repoDiv: {
       display: "flex",
       columnGap: "8px",
       alignItems: "center",
+      marginBottom: "23px",
+      marginTop: "24px",
     },
     icon: {
       alignSelf: "flex-start",
@@ -24,27 +27,39 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SearchResultsContent = () => {
+const numberWithCommas = (commaLessNumber: number): string => {
+  return commaLessNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+interface SearchResultsContent {
+  type: string;
+  content: DataResults;
+}
+
+const SearchResultsContent: React.FC<SearchResultsContent> = ({
+  type,
+  content,
+}) => {
   const classes = useStyles();
   return (
     <div>
       <Typography variant="h5" className={classes.header}>
-        {2555} Repository Results
+        {numberWithCommas(content.total_count)} {type} Results
       </Typography>
-      <div>
-        <div className={classes.repoDiv}>
-          <BookOutlinedIcon className={classes.icon} />
-          <div>
-            <Typography variant="h6" className={classes.repoName}>
-              airbnb/lottie-andriod
-            </Typography>
-            <Typography variant="subtitle1">
-              Render After Effects Animations natively on your computer
-            </Typography>
+      {content.items.map((repo) => (
+        <div>
+          <div className={classes.repoDiv}>
+            <BookOutlinedIcon className={classes.icon} />
+            <div>
+              <Typography variant="h6" className={classes.repoName}>
+                {repo.name}
+              </Typography>
+              <Typography variant="subtitle1">{repo.description}</Typography>
+            </div>
           </div>
           <Divider />
         </div>
-      </div>
+      ))}
     </div>
   );
 };

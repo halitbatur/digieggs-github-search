@@ -28,14 +28,17 @@ const searchApiBuilder = (
   return `https://api.github.com/search/${type}?q=${query}`;
 };
 
+export interface DataResults {
+  total_count: number;
+  incomplete_results: boolean;
+  items: Record<string, string | boolean | number>[];
+}
 const SearchResults = () => {
   const classes = useStyles();
-  const [repos, setRepos] = React.useState<Record<string, string>[]>();
-  const [users, setUsers] = React.useState<Record<string, string>[]>();
+  const [repos, setRepos] = React.useState<DataResults>();
+  const [users, setUsers] = React.useState<DataResults>();
   const query = useQuery();
-
   console.log(repos, users);
-
   const fetchData = async () => {
     if (query.get("query")) {
       const reposResponse = await fetch(
@@ -60,7 +63,7 @@ const SearchResults = () => {
       <CssBaseline />
       <SearchResultsDrawer resultStats={{ repos: 5, bookmarks: 5, users: 5 }} />
       <main className={classes.content}>
-        <SearchResultsContent />
+        {repos && <SearchResultsContent type="Repository" content={repos} />}
       </main>
     </div>
   );

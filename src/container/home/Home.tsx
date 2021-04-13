@@ -12,7 +12,7 @@ const Home = () => {
     >
       <img
         src="./screen_search_desktop.svg"
-        alt="A pc search image"
+        alt="pc with search icon inside of it"
         style={{ width: "86px", height: "86px", margin: "0 auto" }}
       />
       <Typography variant="h4" style={{ color: "#85b0f2" }}>

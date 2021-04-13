@@ -1,7 +1,6 @@
 import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
@@ -77,12 +76,11 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
               icon: <BookmarkBorderIcon />,
               count: bookmarks,
             },
-          ].map((item, index) => (
+          ].map((item) => (
             <ListItem button key={item.text}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
               <ListItemSecondaryAction>{item.count}</ListItemSecondaryAction>
-              <ListItem />
             </ListItem>
           ))}
         </List>
