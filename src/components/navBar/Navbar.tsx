@@ -23,10 +23,6 @@ export default function PrimarySearchAppBar() {
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-      grow: {
-        flexGrow: 1,
-      },
-
       title: {
         display: "none",
         [theme.breakpoints.up("sm")]: {
@@ -96,7 +92,7 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.grow}>
+    <div>
       <AppBar position="static" style={{ backgroundColor: "#375F9D" }}>
         <Toolbar>
           <Typography
@@ -131,7 +127,6 @@ export default function PrimarySearchAppBar() {
               Bookmarks
             </Typography>
           </div>
-          <div className={classes.grow} />
         </Toolbar>
       </AppBar>
     </div>
