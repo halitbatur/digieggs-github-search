@@ -13,15 +13,14 @@ import {
   InputBase,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grow: {
       flexGrow: 1,
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
+
     title: {
       display: "none",
       [theme.breakpoints.up("sm")]: {
@@ -51,6 +50,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+      "&:hover": {
+        cursor: "pointer",
+      },
+      zIndex: 2,
     },
     inputRoot: {
       color: "inherit",
@@ -87,12 +90,6 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static" style={{ backgroundColor: "#375F9D" }}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          ></IconButton>
           <Typography className={classes.title} variant="h4" noWrap>
             DIGIEGGS
           </Typography>
@@ -110,6 +107,10 @@ export default function PrimarySearchAppBar() {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
+          <BookmarkBorderOutlinedIcon />
+          <Typography className={classes.title} variant="subtitle1" noWrap>
+            Bookmarks
+          </Typography>
           <div className={classes.grow} />
         </Toolbar>
       </AppBar>
