@@ -16,10 +16,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useLocation, useHistory } from "react-router-dom";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search);
-};
-
 export default function PrimarySearchAppBar() {
   const location = useLocation();
   let history = useHistory();
