@@ -23,6 +23,11 @@ export default function PrimarySearchAppBar() {
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+      appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+        backgroundColor: "#375F9D",
+        position: "relative",
+      },
       title: {
         display: "none",
         [theme.breakpoints.up("sm")]: {
@@ -93,7 +98,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div>
-      <AppBar position="static" style={{ backgroundColor: "#375F9D" }}>
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <Typography
             className={classes.title}
