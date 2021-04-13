@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, InputBase } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 
 export default function PrimarySearchAppBar() {
@@ -111,7 +111,6 @@ export default function PrimarySearchAppBar() {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
-
           <div
             className={classes.bookMark}
             onClick={() => history.push("/bookmark")}
