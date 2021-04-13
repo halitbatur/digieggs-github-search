@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(1),
+      padding: theme.spacing(4),
     },
   })
 );
@@ -116,9 +116,7 @@ const SearchResults = () => {
           <Divider />
         </div>
       </Drawer>
-      <main className={classes.content}>
-        <Toolbar />
-      </main>
+      <main className={classes.content}>Hello</main>
     </div>
   );
 };
