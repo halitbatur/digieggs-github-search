@@ -3,6 +3,7 @@ import { Divider, Typography } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
 import { DataResults } from "../../container/searchResults/SearchResults";
+import { numberWithCommas } from "../../helper/number-commas-helper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,10 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
-const numberWithCommas = (commaLessNumber: number): string => {
-  return commaLessNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
 
 interface SearchResultsContent {
   type: string;

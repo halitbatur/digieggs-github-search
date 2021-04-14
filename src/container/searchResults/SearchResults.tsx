@@ -5,6 +5,7 @@ import { CssBaseline, CircularProgress } from "@material-ui/core";
 import SearchResultsDrawer from "../../components/searchResultsDrawer/SerchResultsDrawer";
 import SearchResultsContent from "../../components/searchResultsContent/SearchResultsContent";
 import { useFetch } from "../../hooks/useFetch";
+import { numberWithCommas } from "../../helper/number-commas-helper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,18 +39,14 @@ const SearchResults = () => {
   const classes = useStyles();
   const [dataType, setDataType] = React.useState<string>("Repository");
   const query = useQuery();
-
   const { repoStatus, repoData, repoError } = useFetch(
     searchApiBuilder("repositories", query.get("query")),
     "repo"
   );
-
   const { userStatus, userData, userError } = useFetch(
     searchApiBuilder("users", query.get("query")),
     "user"
   );
-  console.log(repoData);
-  console.log(userData);
 
   return (
     <div style={{ display: "flex" }}>
@@ -57,7 +54,11 @@ const SearchResults = () => {
         <>
           <CssBaseline />
           <SearchResultsDrawer
-            resultStats={{ repos: 5, bookmarks: 5, users: 5 }}
+            resultStats={{
+              repos: numberWithCommas(repoData.total_count),
+              bookmarks: numberWithCommas(repoData.total_count),
+              users: numberWithCommas(userData.total_count),
+            }}
             dataType={dataType}
             setDataType={setDataType}
           />

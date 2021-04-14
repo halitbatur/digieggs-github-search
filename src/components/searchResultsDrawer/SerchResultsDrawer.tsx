@@ -37,9 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface SearchResultsDrawerProps {
   resultStats: {
-    repos: number;
-    bookmarks: number;
-    users: number;
+    repos: string;
+    bookmarks: string;
+    users: string;
   };
   dataType: string;
   setDataType: React.Dispatch<React.SetStateAction<string>>;
