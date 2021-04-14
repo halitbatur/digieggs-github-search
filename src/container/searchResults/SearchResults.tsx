@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { CssBaseline, CircularProgress } from "@material-ui/core";
 import SearchResultsDrawer from "../../components/searchResultsDrawer/SerchResultsDrawer";
 import SearchResultsContent from "../../components/searchResultsContent/SearchResultsContent";
 
@@ -55,16 +55,24 @@ const SearchResults = () => {
   };
 
   React.useEffect(() => {
-    fetchData();
+    // fetchData();
   }, [query.get("query")]);
 
   return (
     <div style={{ display: "flex" }}>
-      <CssBaseline />
-      <SearchResultsDrawer resultStats={{ repos: 5, bookmarks: 5, users: 5 }} />
-      <main className={classes.content}>
-        {repos && <SearchResultsContent type="Repository" content={repos} />}
-      </main>
+      {repos ? (
+        <>
+          <CssBaseline />
+          <SearchResultsDrawer
+            resultStats={{ repos: 5, bookmarks: 5, users: 5 }}
+          />
+          <main className={classes.content}>
+            <SearchResultsContent type="Repository" content={repos} />
+          </main>
+        </>
+      ) : (
+        <CircularProgress style={{ margin: "50px auto" }} />
+      )}
     </div>
   );
 };
