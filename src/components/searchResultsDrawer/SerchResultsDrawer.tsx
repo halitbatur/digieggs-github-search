@@ -81,6 +81,10 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
               button
               key={item.text}
               onClick={() => setDataType(item.text)}
+              style={{
+                backgroundColor: item.text === dataType ? "#d9e8ff" : "#fff",
+                color: item.text === dataType ? "#375f9d" : "#000",
+              }}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />

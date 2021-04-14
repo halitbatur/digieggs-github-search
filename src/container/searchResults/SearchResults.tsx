@@ -37,7 +37,7 @@ export interface DataResults {
 }
 const SearchResults = () => {
   const classes = useStyles();
-  const [dataType, setDataType] = React.useState<string>("Repository");
+  const [dataType, setDataType] = React.useState<string>("Repositories");
   const query = useQuery();
   const { repoStatus, repoData, repoError } = useFetch(
     searchApiBuilder("repositories", query.get("query")),
@@ -63,7 +63,10 @@ const SearchResults = () => {
             setDataType={setDataType}
           />
           <main className={classes.content}>
-            <SearchResultsContent type={dataType} content={repoData} />
+            <SearchResultsContent
+              type={dataType}
+              content={dataType === "Repositories" ? repoData : userData}
+            />
           </main>
         </>
       ) : (
