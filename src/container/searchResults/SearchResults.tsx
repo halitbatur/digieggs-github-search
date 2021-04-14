@@ -47,7 +47,6 @@ const SearchResults = () => {
     searchApiBuilder("users", query.get("query")),
     "user"
   );
-  console.log(userStatus);
 
   return (
     <div style={{ display: "flex" }}>
