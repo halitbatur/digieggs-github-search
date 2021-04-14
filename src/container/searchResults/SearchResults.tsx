@@ -5,7 +5,7 @@ import { CssBaseline, CircularProgress } from "@material-ui/core";
 import SearchResultsDrawer from "../../components/searchResultsDrawer/SerchResultsDrawer";
 import SearchResultsContent from "../../components/searchResultsContent/SearchResultsContent";
 import { useFetch } from "../../hooks/useFetch";
-import { numberWithCommas } from "../../helper/number-commas-helper";
+import { numberWithCommas } from "../../helpers/number-commas-helper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,10 +47,11 @@ const SearchResults = () => {
     searchApiBuilder("users", query.get("query")),
     "user"
   );
+  console.log(userStatus);
 
   return (
     <div style={{ display: "flex" }}>
-      {repoData && userData ? (
+      {repoStatus === "fetched" && userStatus === "fetched" ? (
         <>
           <CssBaseline />
           <SearchResultsDrawer
