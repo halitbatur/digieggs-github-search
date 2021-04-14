@@ -32,10 +32,6 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerContainer: {
       overflow: "auto",
     },
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing(4),
-    },
   })
 );
 
@@ -45,10 +41,14 @@ interface SearchResultsDrawerProps {
     bookmarks: number;
     users: number;
   };
+  dataType: string;
+  setDataType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
   resultStats,
+  setDataType,
+  dataType,
 }) => {
   const { repos, users, bookmarks } = resultStats;
   const classes = useStyles();
@@ -77,7 +77,11 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
               count: bookmarks,
             },
           ].map((item) => (
-            <ListItem button key={item.text}>
+            <ListItem
+              button
+              key={item.text}
+              onClick={() => setDataType(item.text)}
+            >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
               <ListItemSecondaryAction>{item.count}</ListItemSecondaryAction>

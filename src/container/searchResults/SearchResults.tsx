@@ -4,6 +4,7 @@ import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import { CssBaseline, CircularProgress } from "@material-ui/core";
 import SearchResultsDrawer from "../../components/searchResultsDrawer/SerchResultsDrawer";
 import SearchResultsContent from "../../components/searchResultsContent/SearchResultsContent";
+import { useFetch } from "../../hooks/useFetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,39 +36,33 @@ export interface DataResults {
 }
 const SearchResults = () => {
   const classes = useStyles();
-  const [repos, setRepos] = React.useState<DataResults>();
-  const [users, setUsers] = React.useState<DataResults>();
+  const [dataType, setDataType] = React.useState<string>("Repository");
   const query = useQuery();
-  console.log(repos, users);
-  const fetchData = async () => {
-    if (query.get("query")) {
-      const reposResponse = await fetch(
-        searchApiBuilder("repositories", query.get("query"))
-      );
-      const usersResponse = await fetch(
-        searchApiBuilder("users", query.get("query"))
-      );
-      const reposData = await reposResponse.json();
-      const usersData = await usersResponse.json();
-      setRepos(reposData);
-      setUsers(usersData);
-    }
-  };
 
-  React.useEffect(() => {
-    // fetchData();
-  }, [query.get("query")]);
+  const { repoStatus, repoData, repoError } = useFetch(
+    searchApiBuilder("repositories", query.get("query")),
+    "repo"
+  );
+
+  const { userStatus, userData, userError } = useFetch(
+    searchApiBuilder("users", query.get("query")),
+    "user"
+  );
+  console.log(repoData);
+  console.log(userData);
 
   return (
     <div style={{ display: "flex" }}>
-      {repos ? (
+      {repoData && userData ? (
         <>
           <CssBaseline />
           <SearchResultsDrawer
             resultStats={{ repos: 5, bookmarks: 5, users: 5 }}
+            dataType={dataType}
+            setDataType={setDataType}
           />
           <main className={classes.content}>
-            <SearchResultsContent type="Repository" content={repos} />
+            <SearchResultsContent type={dataType} content={repoData} />
           </main>
         </>
       ) : (
