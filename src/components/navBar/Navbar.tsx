@@ -13,13 +13,20 @@ import {
   Button,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { useLocation, useHistory } from "react-router-dom";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default function PrimarySearchAppBar() {
   const location = useLocation();
   let history = useHistory();
   const [search, setSearch] = React.useState<string>("");
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -96,9 +103,22 @@ export default function PrimarySearchAppBar() {
   );
   const classes = useStyles();
 
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
     <div>
       <AppBar position="static" className={classes.appBar}>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="warning">
+            Oops looks like u forgot to type a keyword
+          </Alert>
+        </Snackbar>
         <Toolbar>
           <Typography
             className={classes.title}
@@ -109,7 +129,15 @@ export default function PrimarySearchAppBar() {
             DIGIEGGS
           </Typography>
           <div className={classes.search}>
-            <Button onClick={() => history.push(`/search?query=${search}`)}>
+            <Button
+              onClick={() => {
+                if (search.length < 1) {
+                  setOpen(true);
+                } else {
+                  history.push(`/search?query=${search}`);
+                }
+              }}
+            >
               <SearchIcon />
             </Button>
             <InputBase
