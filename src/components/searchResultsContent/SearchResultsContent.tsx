@@ -1,5 +1,5 @@
 import React from "react";
-import { Divider, Typography } from "@material-ui/core";
+import { Divider, Typography, Avatar } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
 import { DataResults } from "../../container/searchResults/SearchResults";
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       marginBottom: "18px",
     },
-    repoDiv: {
+    itemDiv: {
       display: "flex",
       columnGap: "8px",
       alignItems: "center",
@@ -21,9 +21,12 @@ const useStyles = makeStyles((theme: Theme) =>
       alignSelf: "flex-start",
       marginTop: "3px",
     },
-    repoName: {
+    itemName: {
       color: "#375f9d",
       lineHeight: "32px",
+      "&:hover": {
+        cursor: "pointer",
+      },
     },
   })
 );
@@ -38,25 +41,39 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
   content,
 }) => {
   const classes = useStyles();
+
+  const renderItems = () => {
+    return content.items.map((item) => (
+      <div>
+        <div className={classes.itemDiv}>
+          {type === "Users" ? (
+            <Avatar
+              alt="User"
+              src={typeof item.avatar_url === "string" ? item.avatar_url : ""}
+            />
+          ) : (
+            <BookOutlinedIcon className={classes.icon} />
+          )}
+          <div>
+            <Typography variant="h6" className={classes.itemName}>
+              {type === "Users" ? item.login : item.name}
+            </Typography>
+            {type === "Repositories" && (
+              <Typography variant="subtitle1">{item.description}</Typography>
+            )}
+          </div>
+        </div>
+        <Divider />
+      </div>
+    ));
+  };
+
   return (
     <div>
       <Typography variant="h5" className={classes.header}>
         {numberWithCommas(content.total_count)} {type} Results
       </Typography>
-      {content.items.map((repo) => (
-        <div>
-          <div className={classes.repoDiv}>
-            <BookOutlinedIcon className={classes.icon} />
-            <div>
-              <Typography variant="h6" className={classes.repoName}>
-                {repo.name}
-              </Typography>
-              <Typography variant="subtitle1">{repo.description}</Typography>
-            </div>
-          </div>
-          <Divider />
-        </div>
-      ))}
+      {renderItems()}
     </div>
   );
 };
