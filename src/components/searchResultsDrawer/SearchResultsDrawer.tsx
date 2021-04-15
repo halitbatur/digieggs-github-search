@@ -45,7 +45,7 @@ interface SearchResultsDrawerProps {
   setDataType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
+const SearchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
   resultStats,
   setDataType,
   dataType,
@@ -98,4 +98,4 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
   );
 };
 
-export default SerchResultsDrawer;
+export default SearchResultsDrawer;

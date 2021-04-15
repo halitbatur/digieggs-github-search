@@ -1,5 +1,5 @@
 import React from "react";
-import { Divider, Typography, Avatar } from "@material-ui/core";
+import { Divider, Typography, Avatar, Button } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
 import { DataResults } from "../../container/searchResults/SearchResults";
@@ -36,12 +36,14 @@ interface SearchResultsContent {
   type: string;
   content?: DataResults;
   userPageRepos?: Record<string, string | boolean | number>[];
+  repoCount?: number;
 }
 
 const SearchResultsContent: React.FC<SearchResultsContent> = ({
   type,
   content,
   userPageRepos,
+  repoCount,
 }) => {
   let history = useHistory();
   const classes = useStyles();
@@ -82,13 +84,19 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
   };
 
   return (
-    <div>
-      {content?.total_count && (
+    <div style={{ marginLeft: "30px" }}>
+      {!content?.total_count || userPageRepos ? (
+        <Typography variant="h5" className={classes.header}>
+          Repositories{" "}
+          <Button variant="outlined" color="primary" href="#outlined-buttons">
+            {repoCount}
+          </Button>
+        </Typography>
+      ) : (
         <Typography variant="h5" className={classes.header}>
           {numberWithCommas(content.total_count)} {type} Results
         </Typography>
       )}
-
       {renderItems()}
     </div>
   );
