@@ -37,6 +37,7 @@ interface SearchResultsContent {
   content?: DataResults;
   userPageRepos?: Record<string, string | boolean | number>[];
   repoCount?: number;
+  singleRepoTitle?: string;
 }
 
 const SearchResultsContent: React.FC<SearchResultsContent> = ({
@@ -44,6 +45,7 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
   content,
   userPageRepos,
   repoCount,
+  singleRepoTitle,
 }) => {
   let history = useHistory();
   const classes = useStyles();
@@ -86,12 +88,16 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
   return (
     <div style={{ marginLeft: "30px" }}>
       {!content?.total_count || userPageRepos ? (
-        <Typography variant="h5" className={classes.header}>
-          Repositories{" "}
-          <Button variant="outlined" color="primary" href="#outlined-buttons">
-            {repoCount}
-          </Button>
-        </Typography>
+        !singleRepoTitle ? (
+          <Typography variant="h5" className={classes.header}>
+            Repositories{" "}
+            <Button variant="outlined" color="primary" href="#outlined-buttons">
+              {repoCount}
+            </Button>
+          </Typography>
+        ) : (
+          <Typography>{singleRepoTitle}</Typography>
+        )
       ) : (
         <Typography variant="h5" className={classes.header}>
           {numberWithCommas(content.total_count)} {type} Results

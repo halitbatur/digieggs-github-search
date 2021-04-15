@@ -52,6 +52,12 @@ const SingleResultPage = () => {
                 repoCount={itemData.public_repos}
               />
             )}
+            {type === "repositories" && (
+              <SearchResultsContent
+                type={"Repositories"}
+                singleRepoTitle={itemData.description}
+              />
+            )}
           </main>
         </>
       )}

@@ -47,6 +47,56 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
 }) => {
   const classes = useStyles();
 
+  const renderUserInfo = () => {
+    return (
+      <List className={classes.list}>
+        {["avatar_url", "name", "login", ,].map((type) => (
+          <ListItem
+            button
+            key={type}
+            style={{
+              color: "#000000",
+            }}
+          >
+            {type === "avatar_url" && (
+              <ListItemIcon>
+                <Avatar
+                  alt="Remy Sharp"
+                  src={
+                    typeof itemData.avatar_url === "string"
+                      ? itemData.avatar_url
+                      : ""
+                  }
+                  style={{
+                    width: "206px",
+                    height: "206px",
+                    marginTop: "34px",
+                  }}
+                />
+              </ListItemIcon>
+            )}
+            {type === "name" && (
+              <ListItemText>
+                <Typography variant="h5">{itemData[type]}</Typography>
+              </ListItemText>
+            )}
+            {type === "login" && (
+              <ListItemText
+                style={{
+                  position: "absolute",
+                  top: "-20px",
+                  color: "#646464",
+                }}
+              >
+                <Typography variant="subtitle1">{itemData[type]}</Typography>
+              </ListItemText>
+            )}
+          </ListItem>
+        ))}
+      </List>
+    );
+  };
+
   return (
     <Drawer
       className={classes.drawer}
@@ -57,62 +107,7 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
     >
       <Toolbar />
       <div className={classes.drawerContainer}>
-        <List className={classes.list}>
-          {[
-            {
-              type: "avatar_url",
-            },
-            { type: "name" },
-            {
-              type: "login",
-            },
-          ].map((item) => (
-            <ListItem
-              button
-              key={item.type}
-              style={{
-                color: "#000000",
-              }}
-            >
-              {item.type === "avatar_url" && (
-                <ListItemIcon>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={
-                      typeof itemData.avatar_url === "string"
-                        ? itemData.avatar_url
-                        : ""
-                    }
-                    style={{
-                      width: "206px",
-                      height: "206px",
-                      marginTop: "34px",
-                    }}
-                  />
-                </ListItemIcon>
-              )}
-              {item.type === "name" && (
-                <ListItemText>
-                  <Typography variant="h5">{itemData[item.type]}</Typography>
-                </ListItemText>
-              )}
-              {item.type === "login" && (
-                <ListItemText
-                  style={{
-                    position: "absolute",
-                    top: "-20px",
-                    color: "#646464",
-                  }}
-                >
-                  <Typography variant="subtitle1">
-                    {itemData[item.type]}
-                  </Typography>
-                </ListItemText>
-              )}
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
+        {itemType === "user" ? renderUserInfo() : <div>hello</div>}
       </div>
     </Drawer>
   );
