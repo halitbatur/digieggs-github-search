@@ -34,18 +34,22 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface SearchResultsContent {
   type: string;
-  content: DataResults;
+  content?: DataResults;
+  userPageRepos?: Record<string, string | boolean | number>[];
 }
 
 const SearchResultsContent: React.FC<SearchResultsContent> = ({
   type,
   content,
+  userPageRepos,
 }) => {
   let history = useHistory();
   const classes = useStyles();
 
   const renderItems = () => {
-    return content.items.map((item) => (
+    const items = userPageRepos ? userPageRepos : content?.items;
+
+    return items?.map((item) => (
       <div>
         <div className={classes.itemDiv}>
           {type === "Users" ? (
@@ -79,9 +83,12 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
 
   return (
     <div>
-      <Typography variant="h5" className={classes.header}>
-        {numberWithCommas(content.total_count)} {type} Results
-      </Typography>
+      {content?.total_count && (
+        <Typography variant="h5" className={classes.header}>
+          {numberWithCommas(content.total_count)} {type} Results
+        </Typography>
+      )}
+
       {renderItems()}
     </div>
   );

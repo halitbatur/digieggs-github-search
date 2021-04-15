@@ -2,12 +2,12 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import { CssBaseline, CircularProgress } from "@material-ui/core";
-import SearchResultsDrawer from "../../components/searchResultsDrawer/SerchResultsDrawer";
+import SearchResultsDrawer from "../../components/searchResultsDrawer/SearchResultsDrawer";
 import SearchResultsContent from "../../components/searchResultsContent/SearchResultsContent";
 import { useFetch } from "../../hooks/useFetch";
 import { numberWithCommas } from "../../helpers/number-commas-helper";
 
-const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
