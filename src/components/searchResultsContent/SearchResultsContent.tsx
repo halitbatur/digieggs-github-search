@@ -4,6 +4,7 @@ import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
 import { DataResults } from "../../container/searchResults/SearchResults";
 import { numberWithCommas } from "../../helpers/number-commas-helper";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +41,7 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
   type,
   content,
 }) => {
+  let history = useHistory();
   const classes = useStyles();
 
   const renderItems = () => {
@@ -55,7 +57,14 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
             <BookOutlinedIcon className={classes.icon} />
           )}
           <div>
-            <Typography variant="h6" className={classes.itemName}>
+            <Typography
+              onClick={() => {
+                const route = type === "Users" ? "user" : "repositories";
+                history.push(`/single-page/${route}/${item.id}`);
+              }}
+              variant="h6"
+              className={classes.itemName}
+            >
               {type === "Users" ? item.login : item.name}
             </Typography>
             {type === "Repositories" && (
