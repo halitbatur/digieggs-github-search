@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
     icon: {
       alignSelf: "flex-start",
       marginTop: "3px",
-      "&:hover": {
-        cursor: "pointer",
-      },
     },
     itemName: {
       color: "#375f9d",
