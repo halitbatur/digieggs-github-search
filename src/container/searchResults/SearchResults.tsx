@@ -46,11 +46,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ bookmarks }) => {
   const classes = useStyles();
   const [dataType, setDataType] = React.useState<string>("Repositories");
   const query = useQuery();
-  const { repoStatus, repoData, repoError } = useFetch(
+  const { repoStatus, repoData } = useFetch(
     searchApiBuilder("repositories", query.get("query")),
     "repo"
   );
-  const { userStatus, userData, userError } = useFetch(
+  const { userStatus, userData } = useFetch(
     searchApiBuilder("users", query.get("query")),
     "user"
   );

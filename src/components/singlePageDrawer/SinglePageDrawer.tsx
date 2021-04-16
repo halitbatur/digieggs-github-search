@@ -49,8 +49,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface BranchDataType {}
-
 interface SearchResultsDrawerProps {
   itemData: Record<string, string | number | boolean>;
   itemType: string;
@@ -105,10 +103,12 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
         >
           <LinkIcon />{" "}
           <Typography variant="h6">
+            {/* eslint-disable-next-line */}
             <a
               target="_blank"
+              rel="noreferrer"
               href={
-                typeof itemData.html_url === "string" ? itemData.html_url : ""
+                typeof itemData.html_url === "string" ? itemData.html_url : "#"
               }
               style={{ textDecoration: "none", color: "#2c98f0" }}
             >
@@ -242,7 +242,7 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
   const renderUserInfo = () => {
     return (
       <List className={classes.list}>
-        {["avatar_url", "name", "login", ,].map((type) => (
+        {["avatar_url", "name", "login"].map((type) => (
           <ListItem
             key={type}
             style={{

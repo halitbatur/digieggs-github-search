@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface SearchResultsContent {
+interface SearchResultsContentProps {
   type: string;
   content?: DataResults;
   userPageRepos?: Record<string, string | boolean | number>[];
@@ -43,7 +43,7 @@ interface SearchResultsContent {
   singleRepoTitle?: string;
 }
 
-const SearchResultsContent: React.FC<SearchResultsContent> = ({
+const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
   type,
   content,
   userPageRepos,

@@ -24,39 +24,36 @@ const SingleResultPage = () => {
   const [usersRepos, setUsersRepos] = React.useState<
     Record<string, string | boolean | number>[]
   >();
-  const { itemStatus, itemData, itemError } = useFetch(
+  const { itemStatus, itemData } = useFetch(
     singleItemApiBuilder(type, id),
     "item"
   );
 
-  const fetchRepos = async () => {
-    const repos = await fetch(itemData.repos_url);
-    const reposData = await repos.json();
-    setUsersRepos(reposData);
-  };
-
-  const fetchRepoBranchesAndPrs = async () => {
-    const repoBranches = await fetch(
-      `https://api.github.com/repos/${itemData.full_name}/branches`
-    );
-    const branchesInfo: Record<string, string>[] = await repoBranches.json();
-    const repoPrs = await fetch(
-      `https://api.github.com/repos/${itemData.full_name}/pulls`
-    );
-    const prsInfo: Record<string, string>[] = await repoPrs.json();
-    setRepoBranches(branchesInfo);
-    setRepoPrs(prsInfo);
-  };
-
-  console.log(itemData);
-
   React.useEffect(() => {
+    const fetchRepos = async () => {
+      const repos = await fetch(itemData.repos_url);
+      const reposData = await repos.json();
+      setUsersRepos(reposData);
+    };
+
+    const fetchRepoBranchesAndPrs = async () => {
+      const repoBranches = await fetch(
+        `https://api.github.com/repos/${itemData.full_name}/branches`
+      );
+      const branchesInfo: Record<string, string>[] = await repoBranches.json();
+      const repoPrs = await fetch(
+        `https://api.github.com/repos/${itemData.full_name}/pulls`
+      );
+      const prsInfo: Record<string, string>[] = await repoPrs.json();
+      setRepoBranches(branchesInfo);
+      setRepoPrs(prsInfo);
+    };
     if (itemStatus === "fetched" && type === "user") {
       fetchRepos();
     } else if (itemStatus === "fetched") {
       fetchRepoBranchesAndPrs();
     }
-  }, [itemStatus]);
+  }, [itemStatus, itemData.repos_url, itemData.full_name, type]);
 
   return (
     <div style={{ display: "flex" }}>
