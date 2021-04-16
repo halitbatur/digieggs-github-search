@@ -69,7 +69,7 @@ const SearchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
             },
             { text: "Users", icon: <InsertEmoticonIcon />, count: users },
             {
-              text: "Bookmark",
+              text: "Bookmarks",
               icon: <BookmarkBorderIcon />,
               count: bookmarks,
             },

@@ -39,7 +39,7 @@ export interface DataResults {
 }
 
 interface SearchResultsProps {
-  bookmarks: repoData[];
+  bookmarks: any;
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({ bookmarks }) => {
@@ -70,10 +70,17 @@ const SearchResults: React.FC<SearchResultsProps> = ({ bookmarks }) => {
             setDataType={setDataType}
           />
           <main className={classes.content}>
-            <SearchResultsContent
-              type={dataType}
-              content={dataType === "Repositories" ? repoData : userData}
-            />
+            {dataType !== "Bookmarks" ? (
+              <SearchResultsContent
+                type={dataType}
+                content={dataType === "Repositories" ? repoData : userData}
+              />
+            ) : (
+              <SearchResultsContent
+                type="Bookmarks"
+                userPageRepos={bookmarks}
+              />
+            )}
           </main>
         </>
       ) : (
@@ -82,6 +89,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ bookmarks }) => {
     </div>
   );
 };
+
 const mapStateToProps = (state: repoData[]) => {
   return {
     bookmarks: state,
