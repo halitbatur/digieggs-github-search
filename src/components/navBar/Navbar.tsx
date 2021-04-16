@@ -92,7 +92,7 @@ export default function PrimarySearchAppBar() {
         borderRadius: 10,
         display: "flex",
         backgroundColor:
-          location.pathname === "/bookmark"
+          location.pathname === "/bookmarks"
             ? fade(theme.palette.common.white, 0.25)
             : "inherit",
         "&:hover": {
@@ -153,7 +153,7 @@ export default function PrimarySearchAppBar() {
           </div>
           <div
             className={classes.bookMark}
-            onClick={() => history.push("/bookmark")}
+            onClick={() => history.push("/bookmarks")}
           >
             <BookmarkBorderOutlinedIcon />
             <Typography className={classes.title} variant="subtitle1" noWrap>

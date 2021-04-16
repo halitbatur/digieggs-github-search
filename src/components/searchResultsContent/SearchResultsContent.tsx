@@ -77,9 +77,10 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
             >
               {type === "Users" ? item.login : item.name}
             </Typography>
-            {type === "Repositories" && (
-              <Typography variant="subtitle1">{item.description}</Typography>
-            )}
+            {type === "Repositories" ||
+              (type === "Bookmarks" && (
+                <Typography variant="subtitle1">{item.description}</Typography>
+              ))}
           </div>
         </div>
         <Divider />
@@ -91,7 +92,11 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
     <div style={{ marginLeft: "30px" }}>
       {!content?.total_count || userPageRepos ? (
         !singleRepoTitle ? (
-          <Typography variant="h5" className={classes.header}>
+          <Typography
+            variant="h5"
+            className={classes.header}
+            style={{ display: type === "Bookmarks" ? "none" : "block" }}
+          >
             Repositories{" "}
             <Button variant="outlined" color="primary" href="#outlined-buttons">
               {repoCount}
