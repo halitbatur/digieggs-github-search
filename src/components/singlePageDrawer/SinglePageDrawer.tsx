@@ -6,11 +6,12 @@ import List from "@material-ui/core/List";
 import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
 import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
 import LinkIcon from "@material-ui/icons/Link";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
+import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
 import {
   Divider,
-  ListItemSecondaryAction,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -40,14 +41,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface BranchDataType {}
+
 interface SearchResultsDrawerProps {
   itemData: Record<string, string | number | boolean>;
   itemType: string;
+  branches?: any;
+  prs?: Record<string, string>[];
 }
 
 const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
   itemData,
   itemType,
+  branches,
+  prs,
 }) => {
   const classes = useStyles();
 
@@ -201,19 +208,19 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
             ))}
             {[
               {
-                icon: <VisibilityOutlinedIcon />,
+                icon: <AccountTreeOutlinedIcon />,
                 text: "Branches",
                 key: "branches_count",
               },
               {
-                icon: <StarBorderOutlinedIcon />,
+                icon: <ErrorOutlineIcon />,
                 text: "Issues",
                 key: "open_issues_count",
               },
               {
                 icon: <ShuffleIcon />,
                 text: "Pull Requests",
-                key: "forks_count",
+                key: "prs_count",
               },
             ].map((repoInfo) => (
               <>
@@ -239,6 +246,8 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
                       color: "#2c98f0",
                     }}
                   >
+                    {repoInfo.key === "branches_count" && branches?.length}
+                    {repoInfo.key === "prs_count" && prs?.length}
                     {itemData[repoInfo.key]}
                   </Typography>
                 </div>
