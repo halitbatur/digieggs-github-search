@@ -20,6 +20,12 @@ import {
   Avatar,
   Typography,
 } from "@material-ui/core";
+import { connect } from "react-redux";
+import {
+  addNewBookmark,
+  removeBookMark,
+  repoData,
+} from "../../reducers/action";
 
 const drawerWidth = 360;
 
@@ -50,6 +56,9 @@ interface SearchResultsDrawerProps {
   itemType: string;
   branches?: any;
   prs?: Record<string, string>[];
+  bookmarks: repoData[];
+  removeBookMark: (arg: repoData) => void;
+  addNewBookmark: (arg: repoData) => void;
 }
 
 const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
@@ -57,9 +66,12 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
   itemType,
   branches,
   prs,
+  bookmarks,
+  addNewBookmark,
+  removeBookMark,
 }) => {
   const classes = useStyles();
-
+  console.log(bookmarks);
   const renderRepoInfo = () => {
     return (
       <div
@@ -193,7 +205,24 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
             <Divider />
           </>
         ))}
-        <Button variant="outlined" color="primary" style={{ color: "#2c98f0" }}>
+        <Button
+          variant="outlined"
+          color="primary"
+          style={{ color: "#2c98f0" }}
+          onClick={() => {
+            console.log("ana hena");
+            const bookmarkedRepo: any = {
+              id: itemData.id,
+              name: itemData.name,
+              description: itemData.description,
+            };
+            if (bookmarks.find((bookmark) => bookmark.id === itemData.id)) {
+              removeBookMark(bookmarkedRepo);
+              return;
+            }
+            addNewBookmark(bookmarkedRepo);
+          }}
+        >
           <BookmarkBorderSharpIcon /> Add to bookmarks
         </Button>
       </div>
@@ -265,4 +294,17 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
   );
 };
 
-export default SerchResultsDrawer;
+const mapStateToProps = (state: repoData[]) => {
+  return {
+    bookmarks: state,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addNewBookmark: (newrepo: repoData) => dispatch(addNewBookmark(newrepo)),
+    removeBookMark: (newrepo: repoData) => dispatch(removeBookMark(newrepo)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SerchResultsDrawer);

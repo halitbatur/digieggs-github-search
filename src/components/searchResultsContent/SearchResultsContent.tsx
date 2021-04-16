@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
     icon: {
       alignSelf: "flex-start",
       marginTop: "3px",
+      "&:hover": {
+        cursor: "pointer",
+      },
     },
     itemName: {
       color: "#375f9d",
@@ -49,7 +52,6 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
 }) => {
   let history = useHistory();
   const classes = useStyles();
-
   const renderItems = () => {
     const items = userPageRepos ? userPageRepos : content?.items;
 
