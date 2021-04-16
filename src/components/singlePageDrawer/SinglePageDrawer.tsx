@@ -3,10 +3,14 @@ import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
+import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
+import LinkIcon from "@material-ui/icons/Link";
+import ShuffleIcon from "@material-ui/icons/Shuffle";
+import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import {
   Divider,
+  ListItemSecondaryAction,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -107,7 +111,142 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
     >
       <Toolbar />
       <div className={classes.drawerContainer}>
-        {itemType === "user" ? renderUserInfo() : <div>hello</div>}
+        {itemType === "user" ? (
+          renderUserInfo()
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "42px 46px 0",
+            }}
+          >
+            <BookOutlinedIcon style={{ width: "64px", height: "64px" }} />
+            <div>
+              <Typography variant="h5" style={{ color: "#375f9d" }}>
+                {itemData.full_name}
+              </Typography>
+              <Typography variant="subtitle1" style={{ marginBottom: "16px" }}>
+                {itemData.description}
+              </Typography>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                columnGap: "8px",
+                alignItems: "center",
+                marginBottom: "32px",
+              }}
+            >
+              <LinkIcon />{" "}
+              <Typography variant="h6">
+                <a
+                  target="_blank"
+                  href={
+                    typeof itemData.html_url === "string"
+                      ? itemData.html_url
+                      : ""
+                  }
+                  style={{ textDecoration: "none", color: "#2c98f0" }}
+                >
+                  {itemData.full_name}
+                </a>
+              </Typography>
+            </div>
+
+            {[
+              {
+                icon: <VisibilityOutlinedIcon />,
+                text: "Watch",
+                key: "subscribers_count",
+              },
+              {
+                icon: <StarBorderOutlinedIcon />,
+                text: "Star",
+                key: "watchers_count",
+              },
+              {
+                icon: <ShuffleIcon />,
+                text: "Fork",
+                key: "forks_count",
+              },
+            ].map((repoInfo) => (
+              <>
+                {" "}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    columnGap: "8px",
+                    justifyContent: "start",
+                    marginTop: "15px",
+                    marginBottom: "15px",
+                  }}
+                >
+                  {" "}
+                  {repoInfo.icon}
+                  <Typography variant="h6">{repoInfo.text}</Typography>
+                  <Typography
+                    variant="h6"
+                    style={{
+                      marginLeft: "auto",
+                      color: "#2c98f0",
+                    }}
+                  >
+                    {itemData[repoInfo.key]}
+                  </Typography>
+                </div>
+                <Divider />
+              </>
+            ))}
+            {[
+              {
+                icon: <VisibilityOutlinedIcon />,
+                text: "Branches",
+                key: "branches_count",
+              },
+              {
+                icon: <StarBorderOutlinedIcon />,
+                text: "Issues",
+                key: "open_issues_count",
+              },
+              {
+                icon: <ShuffleIcon />,
+                text: "Pull Requests",
+                key: "forks_count",
+              },
+            ].map((repoInfo) => (
+              <>
+                {" "}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    columnGap: "8px",
+                    justifyContent: "start",
+                    marginTop: "15px",
+                    marginBottom: "15px",
+                  }}
+                >
+                  {" "}
+                  {repoInfo.icon}
+                  <Typography variant="h6">{repoInfo.text}</Typography>
+                  <Typography
+                    variant="h6"
+                    style={{
+                      justifySelf: "end",
+                      marginLeft: "auto",
+                      color: "#2c98f0",
+                    }}
+                  >
+                    {itemData[repoInfo.key]}
+                  </Typography>
+                </div>
+                <Divider />
+              </>
+            ))}
+          </div>
+        )}
       </div>
     </Drawer>
   );
