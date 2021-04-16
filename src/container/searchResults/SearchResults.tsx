@@ -6,6 +6,8 @@ import SearchResultsDrawer from "../../components/searchResultsDrawer/SearchResu
 import SearchResultsContent from "../../components/searchResultsContent/SearchResultsContent";
 import { useFetch } from "../../hooks/useFetch";
 import { numberWithCommas } from "../../helpers/number-commas-helper";
+import { connect } from "react-redux";
+import { repoData } from "../../reducers/action";
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +37,12 @@ export interface DataResults {
   incomplete_results: boolean;
   items: Record<string, string | boolean | number>[];
 }
-const SearchResults = () => {
+
+interface SearchResultsProps {
+  bookmarks: repoData[];
+}
+
+const SearchResults: React.FC<SearchResultsProps> = ({ bookmarks }) => {
   const classes = useStyles();
   const [dataType, setDataType] = React.useState<string>("Repositories");
   const query = useQuery();
@@ -56,7 +63,7 @@ const SearchResults = () => {
           <SearchResultsDrawer
             resultStats={{
               repos: numberWithCommas(repoData.total_count),
-              bookmarks: numberWithCommas(repoData.total_count),
+              bookmarks: numberWithCommas(bookmarks.length),
               users: numberWithCommas(userData.total_count),
             }}
             dataType={dataType}
@@ -75,5 +82,10 @@ const SearchResults = () => {
     </div>
   );
 };
+const mapStateToProps = (state: repoData[]) => {
+  return {
+    bookmarks: state,
+  };
+};
 
-export default SearchResults;
+export default connect(mapStateToProps)(SearchResults);

@@ -77,10 +77,9 @@ const SearchResultsContent: React.FC<SearchResultsContent> = ({
             >
               {type === "Users" ? item.login : item.name}
             </Typography>
-            {type === "Repositories" ||
-              (type === "Bookmarks" && (
-                <Typography variant="subtitle1">{item.description}</Typography>
-              ))}
+            {(type === "Repositories" || type === "Bookmarks") && (
+              <Typography variant="subtitle1">{item.description}</Typography>
+            )}
           </div>
         </div>
         <Divider />
