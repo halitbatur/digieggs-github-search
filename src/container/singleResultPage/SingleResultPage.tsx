@@ -69,7 +69,7 @@ const SingleResultPage = () => {
           <main className={classes.content}>
             {usersRepos && (
               <SearchResultsContent
-                type={"Repositories"}
+                type={type}
                 userPageRepos={usersRepos}
                 repoCount={itemData.public_repos}
               />

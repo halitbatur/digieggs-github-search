@@ -78,9 +78,7 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
             >
               {type === "Users" ? item.login : item.name}
             </Typography>
-            {(type === "Repositories" || type === "Bookmarks") && (
-              <Typography variant="subtitle1">{item.description}</Typography>
-            )}
+            {<Typography variant="subtitle1">{item.description}</Typography>}
           </div>
         </div>
         <Divider />
@@ -97,7 +95,7 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
             className={classes.header}
             style={{
               display:
-                type === "Repositories" || "Bookmarks" ? "none" : "block",
+                type === "repositories" || "Bookmarks" ? "none" : "block",
             }}
           >
             Repositories{" "}
@@ -113,7 +111,7 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
           {numberWithCommas(content.total_count)} {type} Results
         </Typography>
       )}
-      {renderItems()}
+      {type === "repositories" || renderItems()}
     </div>
   );
 };
