@@ -5,6 +5,7 @@ import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
 import { DataResults } from "../../container/searchResults/SearchResults";
 import { numberWithCommas } from "../../helpers/number-commas-helper";
 import { useHistory } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,7 +57,7 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
     const items = userPageRepos ? userPageRepos : content?.items;
 
     return items?.map((item) => (
-      <div>
+      <div key={uuidv4()}>
         <div className={classes.itemDiv}>
           {type === "Users" ? (
             <Avatar

@@ -59,7 +59,7 @@ interface SearchResultsDrawerProps {
   addNewBookmark: (arg: repoData) => void;
 }
 
-const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
+const SinglePageDrawer: React.FC<SearchResultsDrawerProps> = ({
   itemData,
   itemType,
   branches,
@@ -69,8 +69,6 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
   removeBookMark,
 }) => {
   const classes = useStyles();
-  console.log(bookmarks);
-
   const isItBookmarked = () => {
     return bookmarks.find((bookmark) => bookmark.id === itemData.id);
   };
@@ -137,6 +135,7 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
           <>
             {" "}
             <div
+              key={repoInfo.key}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -182,6 +181,7 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
           <>
             {" "}
             <div
+              key={repoInfo.key}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -219,7 +219,6 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
               : { color: "#2c98f0" }
           }
           onClick={() => {
-            console.log("ana hena");
             const bookmarkedRepo: any = {
               id: itemData.id,
               name: itemData.name,
@@ -317,4 +316,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SerchResultsDrawer);
+export default connect(mapStateToProps, mapDispatchToProps)(SinglePageDrawer);

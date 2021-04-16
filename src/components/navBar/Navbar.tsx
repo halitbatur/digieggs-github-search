@@ -138,7 +138,7 @@ export default function PrimarySearchAppBar() {
                 }
               }}
             >
-              <SearchIcon />
+              <SearchIcon style={{ color: "white" }} />
             </Button>
             <InputBase
               value={search}
