@@ -72,6 +72,11 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
 }) => {
   const classes = useStyles();
   console.log(bookmarks);
+
+  const isItBookmarked = () => {
+    return bookmarks.find((bookmark) => bookmark.id === itemData.id);
+  };
+
   const renderRepoInfo = () => {
     return (
       <div
@@ -208,7 +213,11 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
         <Button
           variant="outlined"
           color="primary"
-          style={{ color: "#2c98f0" }}
+          style={
+            isItBookmarked()
+              ? { color: "#fff", backgroundColor: "#2c98f0" }
+              : { color: "#2c98f0" }
+          }
           onClick={() => {
             console.log("ana hena");
             const bookmarkedRepo: any = {
@@ -216,14 +225,15 @@ const SerchResultsDrawer: React.FC<SearchResultsDrawerProps> = ({
               name: itemData.name,
               description: itemData.description,
             };
-            if (bookmarks.find((bookmark) => bookmark.id === itemData.id)) {
+            if (isItBookmarked()) {
               removeBookMark(bookmarkedRepo);
               return;
             }
             addNewBookmark(bookmarkedRepo);
           }}
         >
-          <BookmarkBorderSharpIcon /> Add to bookmarks
+          <BookmarkBorderSharpIcon />
+          {isItBookmarked() ? "Remove Bookmark" : " Add to bookmarks"}
         </Button>
       </div>
     );
