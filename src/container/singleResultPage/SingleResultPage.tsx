@@ -53,7 +53,7 @@ const SingleResultPage = () => {
     } else if (itemStatus === "fetched") {
       fetchRepoBranchesAndPrs();
     }
-  }, [itemStatus, itemData.repos_url, itemData.full_name, type]);
+  }, [itemStatus]);
 
   return (
     <div style={{ display: "flex" }}>
