@@ -94,7 +94,10 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
           <Typography
             variant="h5"
             className={classes.header}
-            style={{ display: type === "Bookmarks" ? "none" : "block" }}
+            style={{
+              display:
+                type === "Repositories" || "Bookmarks" ? "none" : "block",
+            }}
           >
             Repositories{" "}
             <Button variant="outlined" color="primary" href="#outlined-buttons">

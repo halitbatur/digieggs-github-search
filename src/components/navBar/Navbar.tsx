@@ -149,6 +149,15 @@ export default function PrimarySearchAppBar() {
               }}
               onChange={(e) => setSearch(e.target.value)}
               inputProps={{ "aria-label": "search" }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  if (search.length < 1) {
+                    setOpen(true);
+                  } else {
+                    history.push(`/search?query=${search}`);
+                  }
+                }
+              }}
             />
           </div>
           <div

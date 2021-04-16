@@ -53,6 +53,7 @@ const SingleResultPage = () => {
     } else if (itemStatus === "fetched") {
       fetchRepoBranchesAndPrs();
     }
+    // eslint-disable-next-line
   }, [itemStatus]);
 
   return (
